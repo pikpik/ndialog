@@ -35,7 +35,7 @@ printPrevObjChain(void *obj)
     } while (p != OBJ(obj));
 } /* printPrevObjChain */
 
-void
+int
 main(int pointy, char **arguments)
 {
     Obj *a, *c;
@@ -85,4 +85,6 @@ main(int pointy, char **arguments)
 	perror("extractFromObjChain");
 
     deleteObjChain(chain);
+
+	return 0;
 }

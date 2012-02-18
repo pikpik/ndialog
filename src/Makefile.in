@@ -32,7 +32,7 @@ $(NDIALOG): $(OBJS)
 	$(AR) cr $(NDIALOG) $(OBJS)
 	@RANLIB@ $(NDIALOG)
 
-test:	fs testhtml testprog testobj mt testdialog testhtml lwb #withdialog
+test:	fs testhtml testprog testobj mt testdialog lwb #withdialog
 
 spotless: clean
 	rm -fr obj shared debug nd.tar.gz
@@ -43,7 +43,7 @@ libclean:
 	rm -f $(NDIALOG)
 
 testclean:
-	rm -fr *.o testhtml testobj testprog testdialog mt
+	rm -fr *.o fs testhtml testprog testobj mt testdialog lwb #withdialog
 
 mt: mt.o $(NDIALOG)
 	$(CC) $(LFLAGS) -o mt mt.o $(NDIALOG) @LIBS@

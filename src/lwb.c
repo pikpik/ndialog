@@ -6,7 +6,7 @@
 
 #include "ndwin.h"
 
-void
+int
 main(int argc, char **argv)
 {
     char *document = (argc > 1) ? argv[1] : "index.html";
@@ -27,4 +27,6 @@ main(int argc, char **argv)
     init_dialog();
     _nd_help(fullpath);
     end_dialog();
+
+	return 0;
 }

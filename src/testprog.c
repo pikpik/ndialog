@@ -27,7 +27,7 @@ menucallback(void *obj, void* display)
 }
 
 
-void
+int
 main(int argc, char **argv)
 {
     void *chain;
@@ -146,4 +146,6 @@ main(int argc, char **argv)
 	    perror("MENU");
     }
     end_dialog();
+
+	return 0;
 }

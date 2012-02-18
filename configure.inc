@@ -41,6 +41,7 @@ ac_standard="--src=DIR		where the source lives (.)
 --confdir=DIR		where to put configuration information (/etc)
 --libdir=DIR		where to put libraries (prefix/lib)
 --libexecdir=DIR	where to put private executables
+--incdir=DIR		where to put includes (prefix/include)
 --mandir=DIR		where to put manpages"
 
 __fail=exit
@@ -135,6 +136,12 @@ while [ $# -gt 0 ]; do
 	__d=`echo "$1" | sed -e 's/^[^=]*=//'`
 	AC_LIBDIR=`__ac_dir "$__d"`
 	_set_libdir=1
+	shift 1;;
+
+    X--inc=*|X--incdir=*)
+	__d=`echo "$1" | sed -e 's/^[^=]*=//'`
+	AC_INCDIR=`__ac_dir "$__d"`
+	_set_incdir=1
 	shift 1;;
 
     X--exec|X--execdir)
@@ -289,10 +296,13 @@ AC_CONTINUE () {
 __MAKEDOTO() {
     AC_PROG_CC
 
-    if $AC_CC -c -o /tmp/doto$$.o "$@" $AC_LIBS 2>/tmp/doto$$.err; then
-	rm -f /tmp/doto$$.o /tmp/doto$$.err
-	TLOG " (found)"
-	return 0
+    if $AC_CC -c -o /tmp/doto$$.o "$@" \
+	 -I$AC_INCDIR -L$AC_LIBDIR $AC_LIBS \
+	 2>/tmp/doto$$.err
+	then
+		rm -f /tmp/doto$$.o /tmp/doto$$.err
+		TLOG " (found)"
+		return 0
     fi
     rm -f /tmp/doto$$.o
     TLOG " (not found)"
@@ -545,7 +555,7 @@ EOF
 		echo "ignoring bogus CFLAGS=\"${CFLAGS}\""
 	    fi
 	else
-	    AC_CFLAGS=-g
+	    AC_CFLAGS="-g -I${AC_INCDIR} -L${AC_LIBDIR}"
 	fi
 	if [ "$LDFLAGS" ]; then
 	    test "$LDFLAGS" && echo "validating LDFLAGS=${LDFLAGS}"
@@ -701,6 +711,7 @@ EOF
     AC_EXECDIR=${AC_EXECDIR:-$AC_PREFIX/bin}
     AC_SBINDIR=${AC_SBINDIR:-$AC_PREFIX/sbin}
     AC_LIBDIR=${AC_LIBDIR:-$AC_PREFIX/lib}
+    AC_INCDIR=${AC_INCDIR:-$AC_PREFIX/include}
     AC_MANDIR=${AC_MANDIR:-$AC_PREFIX$__share/man}
     AC_LIBEXEC=${AC_LIBEXEC:-$AC_PREFIX/$__libexec}
     AC_CONFDIR=${AC_CONFDIR:-/etc}
@@ -1038,6 +1049,7 @@ AC_OUTPUT () {
     AC_SUB 'sbindir' "$AC_SBINDIR"
     AC_SUB 'libdir'  "$AC_LIBDIR"
     AC_SUB 'libexec' "$AC_LIBEXEC"
+    AC_SUB 'incdir'  "$AC_INCDIR"
     AC_SUB 'confdir' "$AC_CONFDIR"
     AC_SUB 'mandir'  "$AC_MANDIR"
 
