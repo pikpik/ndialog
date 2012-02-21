@@ -37,7 +37,10 @@ test:	fs testhtml testprog testobj mt testdialog lwb #withdialog
 spotless: clean
 	rm -fr obj shared debug nd.tar.gz
 
-clean: libclean testclean
+clean: genclean libclean testclean
+
+genclean:
+	rm Makefile curse.h
 
 libclean:
 	rm -f $(NDIALOG)

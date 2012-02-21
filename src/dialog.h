@@ -51,23 +51,30 @@ int strwidth(const char *str);				/* from ndialog */
 int strdepth(const char *str);				/* from ndialog */
 #define	strheight	strdepth
 
+/*
 void dialog_create_rc(char *filename);
+*/						/* Not implemented */
 
 int dialog_yesno(char *title, char *prompt,
 				    int height, int width);
 							/* IMPLEMENTED */
 #define dialog_yesno_extended ndialog_yesno
 
+/*
 int dialog_prgbox(char *title, const char *line,
 				    int height, int width,
 				    int pause, int use_shell);
+*/						/* Not implemented */
 
 int dialog_msgbox(char *title, char *prompt,
 				    int height, int width,
 				    int pause);		/* IMPLEMENTED */
 
+/*
 int dialog_textbox(char *title, char *file,
 				    int height, int width);
+*/						/* Not implemented */
+
 int dialog_menu(char *title, char *prompt,
 				    int height, int width,
 				    int menu_height, int item_no,
@@ -105,7 +112,10 @@ void dialog_notify(char *msg);				/* IMPLEMENTED */
 int  dialog_mesgbox(char *title, char *prompt,
                                           int height, int width);
 							/* IMPLEMENTED */
-void use_helpfile(char *helpfile);			/* IMPLEMENTED */
+/*
+void use_helpfile(char *helpfile);
+*/						/* Not implemented */
+
 void use_helpline(char *helpline);			/* IMPLEMENTED */
 char *get_helpline(void);				/* IMPLEMENTED */
 void restore_helpline(char *helpline);			/* IMPLEMENTED */
